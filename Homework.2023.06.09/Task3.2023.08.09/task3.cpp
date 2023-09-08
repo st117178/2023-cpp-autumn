@@ -1,5 +1,5 @@
 #include <iostream>
-int main() {
+int main(int argc, char* argv[]) {
 	long n;
 	std::cin >> n;
 	long long a = n / 10;
