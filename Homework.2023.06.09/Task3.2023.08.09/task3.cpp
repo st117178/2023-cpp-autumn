@@ -1,6 +1,6 @@
 #include <iostream>
 int main(int argc, char* argv[]) {
-	long n;
+	long n = 0;
 	std::cin >> n;
 	long long a = n / 10;
 	long long b = a + 1;
