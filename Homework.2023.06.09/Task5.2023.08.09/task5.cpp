@@ -1,9 +1,9 @@
 #include <iostream>
 int main(int argc, char* argv[])
 {
-	int U = 0;
-	int T = 0;
-	std::cin >> U >> T;
-	std::cout << ((U * T) % 109 + 109) % 109 + 1;
+	int u = 0;
+	int t = 0;
+	std::cin >> u >> t;
+	std::cout << ((u * t) % 109 + 109) % 109 + 1;
 	return 0;
 }
