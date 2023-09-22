@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
 	std::cin >> k;
 	std::cin >> m;
 	std::cin >> n;
-	int t;
+	int t = 0;
 	if (n <= k) {
 		t = 2 * m;
 	}
