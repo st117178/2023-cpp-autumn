@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main() {
+int main(int argc(), char* argv[]) {
 	int i = 0;
 	std::cin >> i;
 	for (i; i % 10 == 0; i / 10) {
