@@ -3,15 +3,18 @@
 int main(int argc, char* argv[])
 {
 	int n = 0;
-	int min = 0;
-	int max = 0;
-	int min_p = 0;
-	int max_p = 0;
+	
 	std::cin >> n;
 	int* a = (int*)malloc(sizeof(int) * n);
 	std::cin >> *(a);
+
+	int min = 0;
 	min = *(a);
+	int max = 0;
 	max = *(a);
+
+	int min_p = 0;
+	int max_p = 0;
 
 	for (int i = 1; i < n; ++i)
 	{
