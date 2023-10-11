@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	{
 		for (int j = 0; j < n; ++j)
 		{
-			std::cout << n % (i + 1) + 1;
+			std::cout << std::max(std::min(j + 1, n - j), std::min(i + 1, n - i));
 		}
 		std::cout << std::endl;
 	}
