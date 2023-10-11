@@ -9,5 +9,5 @@ int main(int argc, char* argv[])
 
 	std::cout << a + b;
 
-	return 0;
+	return EXIT_SUCCESS;
 }
