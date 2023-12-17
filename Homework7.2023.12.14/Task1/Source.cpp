@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include<iostream>
+#include<cstdio>
+#include<cstdlib>
 #include<cstring>
 
 void Fstrcat(char* a, char* b);
