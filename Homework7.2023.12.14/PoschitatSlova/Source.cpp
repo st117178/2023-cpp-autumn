@@ -15,44 +15,59 @@ int main(int argc, char* argv[])
 	fgets(a, 255, f);
 	fclose(f);
 
-	f = fopen("out.txt", "w");
-	fprintf(f, "Count world: %d\n", slova(a));
-	fclose(f);
+    f = fopen("out.txt", "w");
+    fprintf(f, "Count words:%d\n", slova(a));
+
+    char* sen = strtok(a, ".!?");
+    int maxWords = 0;
+    char* maxsen = nullptr;
+
+    while (sen != nullptr) {
+        int words = slova(sen);
+        if (words > maxWords) {
+            maxWords = words;
+            maxsen = sen;
+        }
+
+        sen = strtok(nullptr, ".!?");
+    }
+
+    if (maxsen != nullptr) {
+        fprintf(f, "Sentence with max words: %s\n",maxsen);
+    }
+    else {
+        fprintf(f, "Pysto\n");
+    }
+
+    fclose(f);
 
 	return EXIT_SUCCESS;
 }
 
-int slova(char* a)
-{
-	int len = strlen(a);
-	int c = 0;
+int slova(char* a) {
+    int count = 0;
+    int i = 0;
+    int len = strlen(a);
 
-	for (int i = 0; i < len; i++)
-	{
-		if (a[i] == ' ')
-		{
-			c++;
-		}
-	}
+    while (i < len && a[i] == ' ') {
+        i++;
+    }
 
-	return (c+1);
+    while (i < len) {
+        if (a[i] == ' ') {
+            count++;
+            while (i < len && a[i] == ' ') {
+                i++;
+            }
+        }
+        else {
+            i++;
+        }
+    }
+
+    if (i > 0 && a[i - 1] != ' ') {
+        count++;
+    }
+
+    return count;
 }
-
-
-
-
-
-
-/*
-* 
-* 
-* 
-FILE* f = fopen("in.txt", "r");
-
-	fscanf(f, "%s\n", &a);
-	fclose(f);
-
-	f = fopen("out.txt", "w");
-	fprintf(f, "%s\n", a);
-	fclose(f);
-	*/

@@ -1,1 +1,2 @@
-Count world: 34
+Count words:34
+Sentence with max words:  Bug's dog was with him, Suddenly wolves jumped out of the forest
