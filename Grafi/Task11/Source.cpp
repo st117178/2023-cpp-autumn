@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 
 struct SEdge {
 	int a;
@@ -21,45 +21,46 @@ public:
 	CGraph();
 	CGraph(int vertexes, int edges);
 	~CGraph();
-	///âûâîäèò ìàòðèöó ñìåæíîñòè ãðàôà
+	///Ã¢Ã»Ã¢Ã®Ã¤Ã¨Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨ Ã£Ã°Ã Ã´Ã 
 	void PrintMatrix();
-	///âûâîäèò äóãè ãðàôà
+	///Ã¢Ã»Ã¢Ã®Ã¤Ã¨Ã² Ã¤Ã³Ã£Ã¨ Ã£Ã°Ã Ã´Ã 
 	void PrintEdges();
-	///ñ÷èòûâàåò ìàòðèöó ñìåæíîñòè ãðàôà
+	///Ã±Ã·Ã¨Ã²Ã»Ã¢Ã Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨ Ã£Ã°Ã Ã´Ã 
 	void ReadMatrix(int vertexes, std::istream& stream);
-	///ñ÷èòûâàåò äóãè ãðàôà
+	///Ã±Ã·Ã¨Ã²Ã»Ã¢Ã Ã¥Ã² Ã¤Ã³Ã£Ã¨ Ã£Ã°Ã Ã´Ã 
 	void ReadEdges(int edges, std::istream& stream, bool haveweight = false);
 	int edgesCount();
 	int roadsCount();
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
-	void ReadColor(int v, std::istream& stream);
-	void task3(int v);
+	void powers();
+	bool Regular();
 
 private:
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
+	///Ã±Ã®Ã§Ã¤Ã Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨ n*n Ã¨ Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã± Ã¤Ã³Ã£Ã Ã¬Ã¨ Ã°Ã Ã§Ã¬Ã¥Ã°Ã  m
 	void init();
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè _vertexes*_vertexes
+	///Ã±Ã®Ã§Ã¤Ã Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨ _vertexes*_vertexes
 	void initMatrix();
-	///ñîçäàåò ìàòðèöó ìàòðèöó ñ äóãàìè ðàçìåðà _edges
+	///Ã±Ã®Ã§Ã¤Ã Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã± Ã¤Ã³Ã£Ã Ã¬Ã¨ Ã°Ã Ã§Ã¬Ã¥Ã°Ã  _edges
 	void initEdges();
 	void initMatrixFromEdges();
 	void initEdgesFromMatrix();
 	int getVertexesCountFromEdges();
 	int getEdgesCountFromMatrix();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè è ìàòðèöó ñ äóãàìè
+	///Ã³Ã¤Ã Ã«Ã¿Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨ Ã¨ Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã± Ã¤Ã³Ã£Ã Ã¬Ã¨
 	void dispose();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè
+	///Ã³Ã¤Ã Ã«Ã¿Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã±Ã¬Ã¥Ã¦Ã­Ã®Ã±Ã²Ã¨
 	void disposeMatrix();
-	///óäàëÿåò ìàòðèöó ñ äóãàìè
+	///Ã³Ã¤Ã Ã«Ã¿Ã¥Ã² Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã± Ã¤Ã³Ã£Ã Ã¬Ã¨
 	void disposeEdges();
 
 	int _vertexes;
 	int _edges;
+	int* _powers;
 	int** _matrix;
-	int* _color;
 	SEdge* _edge;
+
 };
 
 int main(int argc, char* argv[])
@@ -68,17 +69,16 @@ int main(int argc, char* argv[])
 	std::cin >> v;
 	CGraph g(v, v);
 	g.ReadMatrix(v, std::cin);
-	g.ReadColor(v, std::cin);
-	g.task3(v);
+	std::cout << (g.Regular() ? "YES" : "NO") << std::endl;
 	return EXIT_SUCCESS;
 }
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _color(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _powers(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _color(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr), _powers(nullptr)
 {
 	init();
 }
@@ -99,9 +99,9 @@ void CGraph::PrintMatrix()
 		}
 		initMatrixFromEdges();
 	}
-	for (int i = 1; i < _vertexes; ++i)
+	for (int i = 0; i < _vertexes; ++i)
 	{
-		for (int j = 1; j < _vertexes; ++j)
+		for (int j = 0; j < _vertexes; ++j)
 		{
 			std::cout << _matrix[i][j] << " ";
 		}
@@ -190,10 +190,10 @@ int CGraph::power(int vertex)
 
 bool CGraph::isTour()
 {
-	for (int i = 0; i < vertexCount(); ++i)
+	for (int i = 1; i < (vertexCount() - 1); ++i)
 	{
-		int c = 0;
-		for (int j = 0; j < vertexCount(); ++j)
+		int c = 1;
+		for (int j = 1; j < (vertexCount() - 1); ++j)
 		{
 			if (_matrix[i][j] + _matrix[j][i] == 2)
 			{
@@ -212,7 +212,7 @@ bool CGraph::isTour()
 			*/
 			c += (_matrix[i][j] | _matrix[j][i]);
 		}
-		if (c != vertexCount() - 1)
+		if (c != vertexCount() - 2)
 		{
 			return false;
 		}
@@ -339,35 +339,27 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 	return stream;
 }
 
-void CGraph::ReadColor(int v, std::istream& stream)
+void CGraph::powers()
 {
-	_color = new int[v];
-	for (int i = 0; i < v; ++i)
+	_powers = new int[_vertexes * _vertexes] {0};
+	for (int i = 0; i < _vertexes; ++i)
 	{
-		stream >> _color[i];
-	}
-
-}
-
-void CGraph::task3(int v)
-{
-
-	int c = 0;
-
-	for (int i = 0; i < v; i++)
-	{
-		for (int j = 0; j < v; j++)
+		for (int j = 0; j < _vertexes; ++j)
 		{
-			if (_color[i] != _color[j])
-			{
-				if (_matrix[i][j] == 1)
-				{
-					c++;
-				}
-			}
+			_powers[i] += _matrix[i][j];
 		}
 	}
-	delete[] _color;
-	_color = nullptr;
-	std::cout << c / 2;
+}
+
+bool CGraph::Regular()
+{
+	powers();
+	for (int i = 0; i < vertexCount(); ++i)
+	{
+		if (_powers[i] != _powers[0])
+		{
+			return false;
+		}
+	}
+	return true;
 }

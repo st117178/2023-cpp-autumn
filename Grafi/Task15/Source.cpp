@@ -188,10 +188,10 @@ int CGraph::power(int vertex)
 
 bool CGraph::isTour()
 {
-	for (int i = 0; i < vertexCount(); ++i)
+	for (int i = 1; i < (vertexCount() - 1); ++i)
 	{
-		int c = 0;
-		for (int j = 0; j < vertexCount(); ++j)
+		int c = 1;
+		for (int j = 1; j < (vertexCount() - 1); ++j)
 		{
 			if (_matrix[i][j] + _matrix[j][i] == 2)
 			{
@@ -210,7 +210,7 @@ bool CGraph::isTour()
 			*/
 			c += (_matrix[i][j] | _matrix[j][i]);
 		}
-		if (c != vertexCount() - 1)
+		if (c != vertexCount() - 2)
 		{
 			return false;
 		}
