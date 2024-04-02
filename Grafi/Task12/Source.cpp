@@ -34,6 +34,7 @@ public:
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
+	bool Orin();
 
 private:
 	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
@@ -63,11 +64,9 @@ int main(int argc, char* argv[])
 {
 	int v = 0;
 	std::cin >> v;
-	int e = 0;
-	std::cin >> e;
-	CGraph g(v, e);
-	g.ReadEdges(e, std::cin);
-	std::cout << (g.isTour() ? "YES" : "NO") << std::endl;
+	CGraph g(v, v);
+	g.ReadMatrix(v, std::cin);
+	std::cout << (g.Orin() ? "YES" : "NO") << std::endl;
 	return EXIT_SUCCESS;
 }
 
@@ -188,10 +187,10 @@ int CGraph::power(int vertex)
 
 bool CGraph::isTour()
 {
-	for (int i = 1; i < (vertexCount() - 1); ++i)
+	for (int i = 0; i < vertexCount(); ++i)
 	{
-		int c = 1;
-		for (int j = 1; j < (vertexCount() - 1); ++j)
+		int c = 0;
+		for (int j = 0; j < vertexCount(); ++j)
 		{
 			if (_matrix[i][j] + _matrix[j][i] == 2)
 			{
@@ -210,20 +209,9 @@ bool CGraph::isTour()
 			*/
 			c += (_matrix[i][j] | _matrix[j][i]);
 		}
-		if (c != vertexCount() - 2)
+		if (c != vertexCount() - 1)
 		{
 			return false;
-		}
-	}
-
-	for (int i = 1; i < vertexCount() - 1; i++)
-	{
-		for (int j = 1; j < vertexCount() - 1; j++)
-		{
-			if ((i != j) && (_matrix[i][j] + _matrix[j][i] != 1))
-			{
-				return false;
-			}
 		}
 	}
 	return true;
@@ -346,4 +334,24 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 		stream << " " << edge.w;
 	}
 	return stream;
+}
+
+bool CGraph::Orin()
+{
+	bool result = false;
+	for (int i = 0; i < vertexCount(); ++i)
+	{
+		if (_matrix[i][i] == 1)
+		{
+			return false;
+		}
+		for (int j = 0; j < vertexCount(); ++j)
+		{
+			if (_matrix[i][j] != _matrix[j][i])
+			{
+				result = true;
+			}
+		}
+	}
+	return result;
 }

@@ -54,6 +54,7 @@ private:
 	void disposeMatrix();
 	///удаляет матрицу с дугами
 	void disposeEdges();
+	void disposecolor();
 
 	int _vertexes;
 	int _edges;
@@ -279,6 +280,15 @@ void CGraph::dispose()
 	disposeEdges();
 }
 
+void CGraph::disposecolor()
+{
+	if (_color != nullptr)
+	{
+		delete[] _color;
+		_color = nullptr;
+	}
+}
+
 void CGraph::disposeMatrix()
 {
 	if (_matrix != nullptr)
@@ -367,7 +377,6 @@ void CGraph::task3(int v)
 			}
 		}
 	}
-	delete[] _color;
-	_color = nullptr;
+	disposecolor();
 	std::cout << c / 2;
 }

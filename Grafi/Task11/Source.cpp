@@ -361,5 +361,7 @@ bool CGraph::Regular()
 			return false;
 		}
 	}
+	delete[] _powers;
+	_powers = nullptr;
 	return true;
 }
