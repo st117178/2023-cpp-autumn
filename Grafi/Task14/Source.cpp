@@ -46,6 +46,7 @@ private:
 	void initEdges();
 	void initMatrixFromEdges();
 	void initEdgesFromMatrix();
+	void initorigins();
 	int getVertexesCountFromEdges();
 	int getEdgesCountFromMatrix();
 	///óäàëÿåò ìàòðèöó ñìåæíîñòè è ìàòðèöó ñ äóãàìè
@@ -54,9 +55,11 @@ private:
 	void disposeMatrix();
 	///óäàëÿåò ìàòðèöó ñ äóãàìè
 	void disposeEdges();
+	void disposeorigins();
 
 	int _vertexes;
 	int _edges;
+	bool* _origin;
 	int** _matrix;
 	SEdge* _edge;
 };
@@ -74,10 +77,10 @@ int main(int argc, char* argv[])
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _origin(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr), _origin(nullptr)
 {
 	init();
 }
@@ -248,6 +251,16 @@ void CGraph::initEdges()
 	_edge = new SEdge[_edges];
 }
 
+void CGraph::initorigins()
+{
+	if (_vertexes == 0)
+	{
+		return;
+	}
+
+	_origin = new bool[_vertexes] { 0 };
+}
+
 void CGraph::initMatrixFromEdges()
 {
 	disposeMatrix();
@@ -286,6 +299,15 @@ void CGraph::disposeMatrix()
 		{
 			delete[] _matrix[i];
 		}
+		delete[] _matrix;
+		_matrix = nullptr;
+	}
+}
+
+void CGraph::disposeorigins()
+{
+	if (_matrix != nullptr)
+	{
 		delete[] _matrix;
 		_matrix = nullptr;
 	}
@@ -337,23 +359,24 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 	}
 	return stream;
 }
+
 void CGraph::printOrigins()
 {
-	bool origin[101]{ 0 };
+	initorigins();
 	int count = 0;
 	for (int i = 0; i < (vertexCount()); ++i)
 	{
-		origin[i] = true;
+		_origin[i] = true;
 		for (int j = 0; j < (vertexCount()); ++j)
 		{
-			origin[i] &= _matrix[j][i] == 0;
+			_origin[i] &= _matrix[j][i] == 0;
 		}
-		count += (int)origin[i];
+		count += (int)_origin[i];
 	}
 	std::cout << count << " ";
 	for (int i = 0; i < (vertexCount()); ++i)
 	{
-		if (origin[i])
+		if (_origin[i])
 		{
 			std::cout << i + 1 << " ";
 		}
@@ -363,24 +386,25 @@ void CGraph::printOrigins()
 
 void CGraph::printDrain()
 {
-	bool origin[101]{ 0 };
+	initorigins();
 	int count = 0;
 	for (int i = 0; i < (vertexCount()); ++i)
 	{
-		origin[i] = true;
+		_origin[i] = true;
 		for (int j = 0; j < (vertexCount()); ++j)
 		{
-			origin[i] &= _matrix[i][j] == 0;
+			_origin[i] &= _matrix[i][j] == 0;
 		}
-		count += (int)origin[i];
+		count += (int)_origin[i];
 	}
 	std::cout << count << " ";
 	for (int i = 0; i < (vertexCount()); ++i)
 	{
-		if (origin[i])
+		if (_origin[i])
 		{
 			std::cout << i + 1 << " ";
 		}
 	}
 	std::cout << std::endl;
+	disposeorigins();
 }

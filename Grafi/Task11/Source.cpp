@@ -44,6 +44,7 @@ private:
 	void initMatrix();
 	///ñîçäàåò ìàòðèöó ìàòðèöó ñ äóãàìè ðàçìåðà _edges
 	void initEdges();
+	void initpow();
 	void initMatrixFromEdges();
 	void initEdgesFromMatrix();
 	int getVertexesCountFromEdges();
@@ -54,6 +55,7 @@ private:
 	void disposeMatrix();
 	///óäàëÿåò ìàòðèöó ñ äóãàìè
 	void disposeEdges();
+	void disposepow();
 
 	int _vertexes;
 	int _edges;
@@ -240,6 +242,16 @@ void CGraph::initMatrix()
 	}
 }
 
+void CGraph::initpow()
+{
+	if (_vertexes == 0)
+	{
+		return;
+	}
+
+	_powers = new int[_vertexes] { 0 };
+}
+
 void CGraph::initEdges()
 {
 	if (_edges == 0)
@@ -301,6 +313,15 @@ void CGraph::disposeEdges()
 	}
 }
 
+void CGraph::disposepow()
+{
+	if (_powers != nullptr)
+	{
+		delete[] _powers;
+		_powers = nullptr;
+	}
+}
+
 void CGraph::initEdgesFromMatrix()
 {
 	disposeEdges();
@@ -341,7 +362,7 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 
 void CGraph::powers()
 {
-	_powers = new int[_vertexes * _vertexes] {0};
+	initpow();
 	for (int i = 0; i < _vertexes; ++i)
 	{
 		for (int j = 0; j < _vertexes; ++j)
@@ -361,7 +382,6 @@ bool CGraph::Regular()
 			return false;
 		}
 	}
-	delete[] _powers;
-	_powers = nullptr;
+	disposepow();
 	return true;
 }

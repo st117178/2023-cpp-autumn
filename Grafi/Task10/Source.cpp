@@ -41,6 +41,7 @@ private:
 	void init();
 	///ñîçäàåò ìàòðèöó ñìåæíîñòè _vertexes*_vertexes
 	void initMatrix();
+	void initMasd();
 	///ñîçäàåò ìàòðèöó ìàòðèöó ñ äóãàìè ðàçìåðà _edges
 	void initEdges();
 	void initMatrixFromEdges();
@@ -53,9 +54,12 @@ private:
 	void disposeMatrix();
 	///óäàëÿåò ìàòðèöó ñ äóãàìè
 	void disposeEdges();
+	void disposemasd();
+
 
 	int _vertexes;
 	int _edges;
+	int* _masd;
 	int** _matrix;
 	SEdge* _edge;
 };
@@ -72,10 +76,10 @@ int main(int argc, char* argv[])
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _masd(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr), _masd(nullptr)
 {
 	init();
 }
@@ -237,6 +241,16 @@ void CGraph::initMatrix()
 	}
 }
 
+void CGraph::initMasd()
+{
+	if (_vertexes == 0)
+	{
+		return;
+	}
+
+	_masd = new int[_vertexes] { 0 };
+}
+
 void CGraph::initEdges()
 {
 	if (_edges == 0)
@@ -275,6 +289,15 @@ void CGraph::dispose()
 	disposeMatrix();
 	disposeEdges();
 }
+void CGraph::disposemasd()
+{
+	if (_masd != nullptr)
+	{
+		delete[] _masd;
+		_masd = nullptr;
+	}
+}
+
 
 void CGraph::disposeMatrix()
 {
@@ -338,14 +361,14 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 
 void CGraph::CountDegr()
 {
-	int a[101]{ 0 };
-
+	initMasd();
 	for (int i = 0; i < vertexCount(); i++)
 	{
 		for (int j = 0; j < vertexCount(); j++)
 		{
-			a[i] += _matrix[i][j];
+			_masd[i] += _matrix[i][j];
 		}
-		std::cout << a[i] << " ";
+		std::cout << _masd[i] << " ";
 	}
+	disposemasd();
 }
