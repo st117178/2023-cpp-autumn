@@ -21,60 +21,62 @@ public:
 	CGraph();
 	CGraph(int vertexes, int edges);
 	~CGraph();
-	///âûâîäèò ìàòðèöó ñìåæíîñòè ãðàôà
+	///выводит матрицу смежности графа
 	void PrintMatrix();
-	///âûâîäèò äóãè ãðàôà
+	///выводит дуги графа
 	void PrintEdges();
-	///ñ÷èòûâàåò ìàòðèöó ñìåæíîñòè ãðàôà
+	///считывает матрицу смежности графа
 	void ReadMatrix(int vertexes, std::istream& stream);
-	///ñ÷èòûâàåò äóãè ãðàôà
+	///считывает дуги графа
 	void ReadEdges(int edges, std::istream& stream, bool haveweight = false);
 	int edgesCount();
 	int roadsCount();
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
-	void MatDerevo();
+	void Readev(std::istream& stream);
+	void task5();
 
 private:
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
+	///создает матрицу смежности n*n и матрицу с дугами размера m
 	void init();
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè _vertexes*_vertexes
+	///создает матрицу смежности _vertexes*_vertexes
 	void initMatrix();
-	///ñîçäàåò ìàòðèöó ìàòðèöó ñ äóãàìè ðàçìåðà _edges
+	///создает матрицу матрицу с дугами размера _edges
 	void initEdges();
 	void initMatrixFromEdges();
 	void initEdgesFromMatrix();
 	int getVertexesCountFromEdges();
 	int getEdgesCountFromMatrix();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè è ìàòðèöó ñ äóãàìè
+	///удаляет матрицу смежности и матрицу с дугами
 	void dispose();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè
+	///удаляет матрицу смежности
 	void disposeMatrix();
-	///óäàëÿåò ìàòðèöó ñ äóãàìè
+	///удаляет матрицу с дугами
 	void disposeEdges();
+	void disposeev();
 
 	int _vertexes;
 	int _edges;
 	int** _matrix;
+	int* _evmat;
 	SEdge* _edge;
 };
 
 int main(int argc, char* argv[])
 {
-	int n = 0;
-	int v = 0;
-	CGraph g(v, 0);
-	g.MatDerevo();
+	CGraph g(3, 0);
+	g.Readev(std::cin);
+	g.task5();
 	return EXIT_SUCCESS;
 }
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _evmat(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _evmat(nullptr), _edge(nullptr)
 {
 	init();
 }
@@ -95,9 +97,9 @@ void CGraph::PrintMatrix()
 		}
 		initMatrixFromEdges();
 	}
-	for (int i = 0; i < _vertexes; ++i)
+	for (int i = 1; i < _vertexes; ++i)
 	{
-		for (int j = 0; j < _vertexes; ++j)
+		for (int j = 1; j < _vertexes; ++j)
 		{
 			std::cout << _matrix[i][j] << " ";
 		}
@@ -275,6 +277,15 @@ void CGraph::dispose()
 	disposeEdges();
 }
 
+void CGraph::disposeev()
+{
+	if (_evmat != nullptr)
+	{
+		delete[] _evmat;
+		_evmat = nullptr;
+	}
+}
+
 void CGraph::disposeMatrix()
 {
 	if (_matrix != nullptr)
@@ -335,35 +346,27 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 	return stream;
 }
 
-void CGraph::MatDerevo()
+void CGraph::Readev(std::istream& stream)
 {
-	int a = 0;
-	int b = 0;
-	int c = 0;
-
-	std::cin >> c;
-	std::cin >> a;
-	std::cin >> b;
-
-	while (a != b)
+	_evmat = new int[3];
+	for (int i = 0; i < 3; ++i)
 	{
-		if (a % 2 == 0)
-		{
-			a = a / 2;
-		}
-		else
-		{
-			a = (a - 1) / 2;
-		}
+		stream >> _evmat[i];
+	}
 
-		if (b % 2 == 0)
-		{
-			b = b / 2;
+}
+
+void CGraph::task5()
+{
+	while (_evmat[1] != _evmat[2]) {
+		if (_evmat[1] > _evmat[2]) {
+			_evmat[1] /= 2;
 		}
-		else
-		{
-			b = (b - 1) / 2;
+		else {
+			_evmat[2] /= 2;
 		}
 	}
-	std::cout << a;
+
+	std::cout << _evmat[1];
+	disposeev();
 }
