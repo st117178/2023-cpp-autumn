@@ -83,11 +83,13 @@ CGraph::CGraph(int vertexes, int edges)
 	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr), _powers(nullptr)
 {
 	init();
+	initpow();
 }
 
 CGraph::~CGraph()
 {
 	dispose();
+	disposepow();
 }
 
 void CGraph::PrintMatrix()

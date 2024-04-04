@@ -87,6 +87,7 @@ CGraph::CGraph(int vertexes, int edges)
 CGraph::~CGraph()
 {
 	dispose();
+	disposecolor();
 }
 
 void CGraph::PrintMatrix()

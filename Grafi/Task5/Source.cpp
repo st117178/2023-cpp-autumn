@@ -84,6 +84,7 @@ CGraph::CGraph(int vertexes, int edges)
 CGraph::~CGraph()
 {
 	dispose();
+	disposeev();
 }
 
 void CGraph::PrintMatrix()

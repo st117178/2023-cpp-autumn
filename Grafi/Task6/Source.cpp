@@ -21,41 +21,46 @@ public:
 	CGraph();
 	CGraph(int vertexes, int edges);
 	~CGraph();
-	///âûâîäèò ìàòðèöó ñìåæíîñòè ãðàôà
+	///выводит матрицу смежности графа
 	void PrintMatrix();
-	///âûâîäèò äóãè ãðàôà
+	///выводит дуги графа
 	void PrintEdges();
-	///ñ÷èòûâàåò ìàòðèöó ñìåæíîñòè ãðàôà
+	///считывает матрицу смежности графа
 	void ReadMatrix(int vertexes, std::istream& stream);
-	///ñ÷èòûâàåò äóãè ãðàôà
+	///считывает дуги графа
 	void ReadEdges(int edges, std::istream& stream, bool haveweight = false);
 	int edgesCount();
 	int roadsCount();
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
+	int planet();
+	void maspl();
 
 private:
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
+	///создает матрицу смежности n*n и матрицу с дугами размера m
 	void init();
-	///ñîçäàåò ìàòðèöó ñìåæíîñòè _vertexes*_vertexes
+	///создает матрицу смежности _vertexes*_vertexes
 	void initMatrix();
-	///ñîçäàåò ìàòðèöó ìàòðèöó ñ äóãàìè ðàçìåðà _edges
+	///создает матрицу матрицу с дугами размера _edges
 	void initEdges();
 	void initMatrixFromEdges();
 	void initEdgesFromMatrix();
+	void initpl();
 	int getVertexesCountFromEdges();
 	int getEdgesCountFromMatrix();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè è ìàòðèöó ñ äóãàìè
+	///удаляет матрицу смежности и матрицу с дугами
 	void dispose();
-	///óäàëÿåò ìàòðèöó ñìåæíîñòè
+	///удаляет матрицу смежности
 	void disposeMatrix();
-	///óäàëÿåò ìàòðèöó ñ äóãàìè
+	///удаляет матрицу с дугами
 	void disposeEdges();
+	void disposepl();
 
 	int _vertexes;
 	int _edges;
 	int** _matrix;
+	int* _plan;
 	SEdge* _edge;
 };
 
@@ -64,24 +69,26 @@ int main(int argc, char* argv[])
 	int v = 0;
 	std::cin >> v;
 	CGraph g(v, 0);
-	g.ReadEdges(v, std::cin);
-	g.PrintMatrix();
+	g.ReadEdges(v - 1, std::cin);
+	std::cout << g.planet() << std::endl;
 	return EXIT_SUCCESS;
 }
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _plan(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _plan(nullptr), _edge(nullptr)
 {
 	init();
+	initpl();
 }
 
 CGraph::~CGraph()
 {
 	dispose();
+	disposepl();
 }
 
 void CGraph::PrintMatrix()
@@ -95,9 +102,9 @@ void CGraph::PrintMatrix()
 		}
 		initMatrixFromEdges();
 	}
-	for (int i = 0; i < _vertexes; ++i)
+	for (int i = 1; i < _vertexes; ++i)
 	{
-		for (int j = 0; j < _vertexes; ++j)
+		for (int j = 1; j < _vertexes; ++j)
 		{
 			std::cout << _matrix[i][j] << " ";
 		}
@@ -333,4 +340,52 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 		stream << " " << edge.w;
 	}
 	return stream;
+}
+
+void CGraph::maspl()
+{
+	initpl();
+	for (int i = 0; i < _edges; ++i)
+	{
+		_plan[_edge[i].a]++;
+		_plan[_edge[i].b]++;
+	}
+}
+
+void CGraph::initpl()
+{
+	if (_vertexes == 0)
+	{
+		return;
+	}
+	_plan = new int [_vertexes] {0};
+}
+
+void CGraph::disposepl()
+{
+	if (_plan != nullptr)
+	{
+		delete[] _plan;
+		_plan = nullptr;
+	}
+}
+
+int CGraph::planet()
+{
+
+	maspl();
+
+	int c = 0;
+
+	for (int i = 1; i < vertexCount(); ++i)
+	{
+		if (_plan[i] > 1)
+		{
+			c++;
+		}
+	}
+
+	disposepl();
+
+	return c;
 }

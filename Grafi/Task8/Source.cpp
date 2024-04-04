@@ -34,7 +34,6 @@ public:
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
-	void degVertex();
 	void outputAdjencyList();
 
 private:
@@ -58,7 +57,6 @@ private:
 	int _vertexes;
 	int _edges;
 	int** _matrix;
-	int* _color;
 	SEdge* _edge;
 };
 
@@ -66,20 +64,20 @@ int main(int argc, char* argv[])
 {
 	int v = 0;
 	std::cin >> v;
-	int m = 0;
-	std::cin >> m;
-	CGraph g(v, m);
-	g.ReadEdges(m, std::cin);
+	int e = 0;
+	std::cin >> e;
+	CGraph g(v, e);
+	g.ReadEdges(e, std::cin);
 	g.outputAdjencyList();
 	return EXIT_SUCCESS;
 }
 
 
 CGraph::CGraph()
-	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr), _color(nullptr) {}
+	: _vertexes(0), _edges(0), _matrix(nullptr), _edge(nullptr) {}
 
 CGraph::CGraph(int vertexes, int edges)
-	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _color(nullptr), _edge(nullptr)
+	: _vertexes(vertexes), _edges(edges), _matrix(nullptr), _edge(nullptr)
 {
 	init();
 }
@@ -339,36 +337,6 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 	}
 	return stream;
 }
-
-void CGraph::degVertex()
-{
-	int a[101]{ 0 };
-
-	for (int i = 0; i < vertexCount(); i++)
-	{
-		for (int j = 0; j < vertexCount(); j++)
-		{
-			a[i] += _matrix[i][j];
-		}
-		std::cout << a[i] << " ";
-	}
-}
-
-/*void inputAdjencyList(int a[101][101], int& n)
-{
-	cin >> n;
-	for (int i = 1; i <= n; ++i)
-	{
-		int edges = 0;
-		cin >> edges;
-		for (int j = 0; j < edges; ++j)
-		{
-			int end = 0;
-			cin >> end;
-			a[i][end] = 1;
-		}
-	}
-}*/
 
 void CGraph::outputAdjencyList()
 {
