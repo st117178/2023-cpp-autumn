@@ -34,7 +34,7 @@ public:
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
-	bool Full();
+	void task4();
 
 private:
 	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
@@ -64,11 +64,9 @@ int main(int argc, char* argv[])
 {
 	int v = 0;
 	std::cin >> v;
-	int e = 0;
-	std::cin >> e;
-	CGraph g(v, e);
-	g.ReadEdges(e, std::cin);
-	std::cout << (g.Full() ? "YES" : "NO") << std::endl;
+	CGraph g(v, 0);
+	g.ReadMatrix(v, std::cin);
+	g.task4();
 	return EXIT_SUCCESS;
 }
 
@@ -125,7 +123,7 @@ void CGraph::PrintEdges()
 	}
 }
 
-void CGraph::ReadMatrix(int vertexes, std::istream& stream)
+void CGraph::ReadMatrix(int vertexes, std::istream & stream)
 {
 	_vertexes = vertexes;
 	initMatrix();
@@ -139,7 +137,7 @@ void CGraph::ReadMatrix(int vertexes, std::istream& stream)
 	initEdgesFromMatrix();
 }
 
-void CGraph::ReadEdges(int edges, std::istream& stream, bool haveweight)
+void CGraph::ReadEdges(int edges, std::istream & stream, bool haveweight)
 {
 	_edges = edges;
 	initEdges();
@@ -255,7 +253,7 @@ void CGraph::initMatrixFromEdges()
 	initMatrix();
 	for (int i = 0; i < _edges; ++i)
 	{
-		_matrix[_edge[i].a][_edge[i].b]++;
+		_matrix[_edge[i].a][_edge[i].b] = _edge[i].w;
 	}
 }
 
@@ -328,7 +326,7 @@ int CGraph::getVertexesCountFromEdges()
 	return res + 1;
 }
 
-std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
+std::ostream& operator<<(std::ostream & stream, const SEdge & edge)
 {
 	stream << edge.a << " " << edge.b;
 	if (edge.w > 1)
@@ -338,17 +336,22 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 	return stream;
 }
 
-bool CGraph::Full()
+void CGraph::task4()
 {
-	for (int i = 1; i < (vertexCount()); ++i)
+	int max = 3000;
+
+	for (int i = 0; i < vertexCount(); i++)
 	{
-		for (int j = i + 1; j < (vertexCount()); ++j)
+		for (int j = i + 1; j < vertexCount(); j++)
 		{
-			if (_matrix[i][j] + _matrix[j][i] == 0)
+			for (int k = j + 1; k < vertexCount(); k++)
 			{
-				return false;
+				if (max > _matrix[i][j] + _matrix[j][k] + _matrix[i][k])
+				{
+					max = _matrix[i][j] + _matrix[j][k] + _matrix[i][k];
+				}
 			}
 		}
 	}
-	return true;
+	std::cout << max;
 }

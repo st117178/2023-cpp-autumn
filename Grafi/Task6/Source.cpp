@@ -34,7 +34,6 @@ public:
 	int vertexCount();
 	int power(int vertex);
 	bool isTour();
-	bool Full();
 
 private:
 	///ñîçäàåò ìàòðèöó ñìåæíîñòè n*n è ìàòðèöó ñ äóãàìè ðàçìåðà m
@@ -64,11 +63,9 @@ int main(int argc, char* argv[])
 {
 	int v = 0;
 	std::cin >> v;
-	int e = 0;
-	std::cin >> e;
-	CGraph g(v, e);
-	g.ReadEdges(e, std::cin);
-	std::cout << (g.Full() ? "YES" : "NO") << std::endl;
+	CGraph g(v, 0);
+	g.ReadEdges(v, std::cin);
+	g.PrintMatrix();
 	return EXIT_SUCCESS;
 }
 
@@ -255,7 +252,7 @@ void CGraph::initMatrixFromEdges()
 	initMatrix();
 	for (int i = 0; i < _edges; ++i)
 	{
-		_matrix[_edge[i].a][_edge[i].b]++;
+		_matrix[_edge[i].a][_edge[i].b] = _edge[i].w;
 	}
 }
 
@@ -336,19 +333,4 @@ std::ostream& operator<<(std::ostream& stream, const SEdge& edge)
 		stream << " " << edge.w;
 	}
 	return stream;
-}
-
-bool CGraph::Full()
-{
-	for (int i = 1; i < (vertexCount()); ++i)
-	{
-		for (int j = i + 1; j < (vertexCount()); ++j)
-		{
-			if (_matrix[i][j] + _matrix[j][i] == 0)
-			{
-				return false;
-			}
-		}
-	}
-	return true;
 }
