@@ -61,7 +61,7 @@ namespace ChessMaharProj {
             pos = gcnew Position(newpos->getX(), newpos->getY());
         }
 
-        bool MethodCheakerBreker(int numberbool, int x, int y, array <FigureInterface^, 2>^ map)//переделать
+        virtual bool MethodCheakerBreker(int numberbool, int x, int y, array <FigureInterface^, 2>^ map)//переделать
         {
             bool cheaker1 = player != map[x, y]->getPlayer();
             bool cheaker2 = map[x, y] != nullptr;

@@ -31,6 +31,8 @@ namespace ChessMaharProj {
             CreateDesk();
         }
 
+        InitFDesk(const InitFDesk^% other){}
+
         Player^ getPlayer()
         {
             return curPlayer;
