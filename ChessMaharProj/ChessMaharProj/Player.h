@@ -22,14 +22,6 @@ namespace ChessMaharProj {
             return color;
         }
 
-        static bool operator==(const Player% player1, const Player% player2) {
-            return player1.color == player2.color;
-        }
-
-        static bool operator!=(const Player% player1, const Player% player2) {
-            return !(player1 == player2);
-        }
-
         bool isSame(Object^ object)
         {
             Player^ player = (Player^)object;
