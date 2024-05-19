@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ClassChess">
+      <UniqueIdentifier>{81a5c40d-194c-4b75-8194-4f1da6585be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ClassChess\Figure">
+      <UniqueIdentifier>{28e6c3c7-1cff-4434-aa53-c995d7f6b10d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Registr.cpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ChessDesk.cpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Registr.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ChessDesk.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ClassChess</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>ClassChess</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ClassChess</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>ClassChess</Filter>
+    </ClInclude>
+    <ClInclude Include="FigureInt.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Pown.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Rook.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Bishop.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="King.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Queen.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="Maharaji.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+    <ClInclude Include="InitDesk.h">
+      <Filter>ClassChess</Filter>
+    </ClInclude>
+    <ClInclude Include="DListPos.h">
+      <Filter>ClassChess\Figure</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="ImgReg.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Untitled.jpg">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Maharaji.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Rook.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Queen.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Pawn.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="King.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Knight.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Bishop.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
